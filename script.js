@@ -4,6 +4,7 @@ const fs = require('fs');
 const targetCurrency = 'USD';
 const budgetTypeCheap = '1';
 const budgetTypeMidRange = '2';
+const budgetTypeLuxury = '3';
 const countries = [
     {
         "name": "Albania",
@@ -636,11 +637,12 @@ async function run() {
         await page.goto(country.link);
         const dailyBudgetCheap = await getDailyBudgetAmount(page, budgetTypeCheap);
         const dailyBudgetMidRange = await getDailyBudgetAmount(page, budgetTypeMidRange);
+        const dailyBudgetLuxury = await getDailyBudgetAmount(page, budgetTypeLuxury);
         result.push({
             country: country.name,
             dailyBudgetCheap: dailyBudgetCheap,
             dailyBudgetMidRange: dailyBudgetMidRange,
-            dailyBudgetAverage: (dailyBudgetCheap + dailyBudgetMidRange) / 2.0,
+            dailyBudgetLuxury: dailyBudgetLuxury,
         });
     }
     const resultJson = JSON.stringify(result, null, 2);
